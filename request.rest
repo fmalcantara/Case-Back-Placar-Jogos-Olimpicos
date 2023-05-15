@@ -1,0 +1,27 @@
+### Create COmpetition
+POST http://localhost:3003/competition/create
+Content-Type: application/json
+
+{
+  "name": "corrida"
+}
+
+
+### Creiar Resultado
+POST http://localhost:3003/result/insert
+Content-Type: application/json
+
+{
+   "competicao":"dardo",
+      "atleta":"Ana",
+      "value": 150,
+      "unidade":"m"
+}
+
+### Ranking
+GET http://localhost:3003/result/ranking
+Content-Type: application/json
+
+{
+  "competicao": "dardo"
+}
