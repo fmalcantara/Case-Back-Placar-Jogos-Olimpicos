@@ -1,9 +1,10 @@
+import { CompetitionRepository } from "../Business/CompetitionRepository";
 import { CompetitionNotFound } from "../Error/competitionError";
 import { competition } from "../Model/competition";
 import { BaseDatabase } from "./BaseDataBase";
 
 
-export class CompetitionDataBase extends BaseDatabase{
+export class CompetitionDataBase extends BaseDatabase implements CompetitionRepository {
   private userTable = 'COMP_TABLE'
 
     create = async (competition: competition): Promise<void> => {

@@ -1,8 +1,9 @@
+import { ResultRepository } from "../Business/ResultRepository"
 import { CustomError } from "../Error/customError"
 import { result } from "../Model/resultCompetition"
 import { BaseDatabase } from "./BaseDataBase"
 
-export class ResultCompetitionDataBase extends BaseDatabase{
+export class ResultCompetitionDataBase extends BaseDatabase implements ResultRepository{
   private usertable='COMPRESULT_TABLE'
 
     insertResult = async(result: result):Promise<void>=>{
@@ -14,7 +15,7 @@ export class ResultCompetitionDataBase extends BaseDatabase{
       }
     }
 
-    rankingRace = async(competicao: string)=>{
+    rankingRace = async(competicao: string): Promise<result[]>=>{
       try {
         const result = await ResultCompetitionDataBase.connection(this.usertable)
         .select('competicao', 'atleta', 'value', 'unidade')
@@ -25,7 +26,7 @@ export class ResultCompetitionDataBase extends BaseDatabase{
          throw new CustomError(400, error.message)
       }
     }
-    rankingDardo = async(competicao: string)=>{
+    rankingDardo = async(competicao: string): Promise<result>=>{
       try {
         const result = await ResultCompetitionDataBase.connection.raw(`
         SELECT competicao, atleta, max(value) value, unidade from COMPRESULT_TABLE
