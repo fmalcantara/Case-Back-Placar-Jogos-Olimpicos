@@ -8,7 +8,7 @@ export class CompetitionNotFound extends CustomError{
 
 export class NameNotFound extends CustomError{
   constructor(){
-    super(404, 'Name not Found!')
+    super(404, 'Name not Found')
   }
 }
 

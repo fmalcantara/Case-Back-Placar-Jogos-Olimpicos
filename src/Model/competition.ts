@@ -4,6 +4,13 @@ export type competition = {
   status?: string;
 }
 
+export class Competition{
+  constructor(
+    private id: string,
+    private name: string,
+  ) {}
+}
+
 export interface CompetitionDTO {
   name: string;
 }

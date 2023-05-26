@@ -1,6 +1,6 @@
 import { CustomError } from "../Error/customError";
-import { NameNotFound } from "../Error/competitionError"
-import { CompetitionDTO, competition } from "../Model/competition"
+import { NameNotFound, NotExistsCompetition } from "../Error/competitionError"
+import {  competition } from "../Model/competition"
 import { CompetitionRepository } from "./CompetitionRepository";
 import { IIdGenerator } from "./ports";
 
@@ -11,9 +11,9 @@ export class CompetitionBusiness {
     private idGenerator: IIdGenerator
   ) {}
 
-  create = async(input: CompetitionDTO)=>{
+  create = async(name: string)=>{
     try {
-        if(!input.name){
+        if(!name){
           throw new NameNotFound()
         }
   
@@ -21,12 +21,33 @@ export class CompetitionBusiness {
     
     const competition: competition = {
       id,
-      name: input.name,
+      name,
     }
     await this.competitionDatabase.create(competition)
 
     } catch (error:any) {
-      throw new CustomError(400, error.message); 
+      throw new CustomError(error.statusCode, error.message); 
     }
   }
+
+  close = async(name:string)=>{
+    try {
+      if(!name){
+        throw new NameNotFound()
+      }
+      const allCompetition = await this.competitionDatabase.getAllCompetition()
+      const getAllCompetition = allCompetition.find(competition=>competition.name===name)
+
+      if(!getAllCompetition){
+        throw new NotExistsCompetition()
+      }
+
+      await this.competitionDatabase.close(name)
+
+
+    } catch (error: any) {
+      throw new CustomError(error.statusCode, error.message); 
+    }
+  }
+
 }
