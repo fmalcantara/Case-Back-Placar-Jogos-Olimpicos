@@ -10,15 +10,25 @@ export class CompetitionController{
   create=async(req: Request, res: Response): Promise<void>=>{
     try {
       
-      const input = {
-        name: req.body.name
-      }
+      const name = req.body.name
+      
 
-      await this.competitionBusiness.create(input)
+      await this.competitionBusiness.create(name)
       res.status(200).send({message:'Competiton Created successfully!'})
 
     } catch (error:any) {
-      res.status(error.statusCode||400).send(error.message || error.sqlmessage)
+      res.status(error.statusCode||404).send(error.message || error.sqlmessage)
     }
   }
+
+  public close = async(req: Request, res:Response)=>{
+      try {
+        const name = req.body.name
+        await this.competitionBusiness.close(name)
+        res.status(200).send({message: "Competition Successfully Closed"})
+      } catch (error:any) {
+        res.status(error.statusCode || 400).send(error.message || error.sqlMessage)      
+      }
+  }
+
 }

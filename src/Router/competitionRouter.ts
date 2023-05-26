@@ -13,4 +13,5 @@ const competitionController = new CompetitionController(competitionBusiness )
 
 
 competitionRouter.post('/create', (req, res)=>competitionController.create(req,res))
+competitionRouter.put('/close', (req, res)=>competitionController.close(req,res))
 
