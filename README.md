@@ -2,6 +2,7 @@
  # Case Back-End: Placar Jogos Olimpicos.
 
 Link documentação: https://documenter.getpostman.com/view/22376814/2s93mBxeSc
+<br/>
 Link Render: https://case-placar-jogos-olimpicos.onrender.com
 
 ## Jogos Olímpicos
@@ -15,6 +16,7 @@ Construção de uma API REST que será responsável por marcar e dizer os venced
 Através da API, devemos ser capazes de:
 
 1.Criar uma competição;
+<br/>
 2.Cadastrar resultados para uma competição (todos os campos são obrigatórios), 
 
 Ex:
@@ -40,23 +42,23 @@ Ex:
 5. Retornar o ranking da competição, exibindo a posição final de cada atleta.
 
 ### Tecnologias utilizadas:
--Node.Js
--Express
--TypeScript
--Knex
--MySql
+- Node.Js
+- Express
+- TypeScript
+- Knex
+- MySql
 
 ### Para Rodar o Projeto
-git clone https://github.com/fmalcantara/Case-Back-Placar-Jogos-Olimpicos.git
+- git clone https://github.com/fmalcantara/Case-Back-Placar-Jogos-Olimpicos.git
 
-cd Case-Back-Placar-Jogos-Olimpicos
+- cd Case-Back-Placar-Jogos-Olimpicos
 
-npm install
+- npm install
 
--Crie uma variavel de ambiente com o aquivo.env
+- Crie uma variavel de ambiente com o aquivo.env
 
-PORT = 3003
-DB_HOST = ""
-DB_USER = ""
-DB_PASSWORD = ""
-DB_DATABASE = ""
+      PORT = 3003
+      DB_HOST = ""
+      DB_USER = ""
+      DB_PASSWORD = ""
+      DB_DATABASE = ""
