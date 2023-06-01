@@ -6,4 +6,5 @@ export interface ResultRepository {
   insertResult(result: result):Promise<void>
   rankingRace (competicao: string): Promise<result[]>
   rankingDardo (competicao: string): Promise<result[]>
+  getAllResult ():Promise<result[]>
 }

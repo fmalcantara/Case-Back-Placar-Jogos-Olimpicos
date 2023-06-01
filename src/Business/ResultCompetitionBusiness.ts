@@ -1,20 +1,20 @@
-import { CompetitionDataBase } from "../Data/CompetitionDataBase"
-import { ResultCompetitionDataBase } from "../Data/ResultCompetitionDataBase"
-import { AtletaNotFound, CloseCompetition, CompetitionNotFound, InvalidValue, NotExistsCompetition, ValueNotFound, WrongUnit } from "../Error/competitionError"
+import { AthleteAttempts, AtletaNotFound, CloseCompetition, CompetitionNotFound, ExistingCompetition, InvalidValue, NotExistsCompetition, UnidadeNotFound, ValueNotFound, WrongUnit } from "../Error/competitionError"
 import { CustomError } from "../Error/customError"
 import { CompetitionRoles } from "../Model/competition"
-import { result, resultDTO } from "../Model/resultCompetition"
+import { result } from "../Model/resultCompetition"
+import { CompetitionRepository } from "./CompetitionRepository"
+import { ResultRepository } from "./ResultRepository"
 import { IIdGenerator } from "./ports"
 
 export class ResultCompetitionBusiness{
   constructor(
-    private competitionDataBase: CompetitionDataBase,
-    private resultCompetitionDataBase: ResultCompetitionDataBase,
+    private competitionDataBase: CompetitionRepository,
+    private resultCompetitionDataBase: ResultRepository,
     private idGenerator: IIdGenerator,
   ){}
 
 
-  insertResult=async(input: resultDTO)=>{
+  insertResult=async(input: any)=>{
     try {
       const {competicao, atleta, value, unidade} = input
         
@@ -43,8 +43,29 @@ export class ResultCompetitionBusiness{
       if(typeof value !== "number"){
         throw new InvalidValue()    
           }
-      if(unidade.toUpperCase()!== "S" && unidade.toUpperCase()!=="M"){
+      
+      if(!unidade){
+        throw new UnidadeNotFound() 
+      }
+      
+          if(unidade.toUpperCase()!== "S" && unidade.toUpperCase()!=="M"){
         throw new WrongUnit()    
+        }
+
+        const allResults = await this.resultCompetitionDataBase.getAllResult()
+        const getResult = allResults.find(result => result.atleta === atleta);       
+        
+        
+        let counter = 0;
+        for (let i = 0; i < allResults.length; i++) {
+        }
+        
+        if(counter > 3){
+            throw new AthleteAttempts();
+        }   
+
+        if(competicao === '100m rasos' && getResult){
+            throw new ExistingCompetition()
         }
 
         const id:string = this.idGenerator.generateId();
@@ -62,16 +83,22 @@ export class ResultCompetitionBusiness{
         await this.resultCompetitionDataBase.insertResult(result)
 
     } catch (error:any) {
-      throw new CustomError(400, error.message)
+      throw new CustomError(error.statusCode, error.message);
     }
   }
 
   ranking = async(competicao: string)=>{
    try {
+    
+    if(!competicao){
+      throw new CompetitionNotFound();
+  }
+
     const allCompetions = await this.competitionDataBase.getAllCompetition()
     const checkCompetions = allCompetions.find((item)=>{
       return item.name === competicao
     })
+    
     if(!checkCompetions){
       throw new NotExistsCompetition();
     }
@@ -84,7 +111,7 @@ export class ResultCompetitionBusiness{
       return result
     }
    } catch (error:any) {
-      throw new CustomError(400, error.message)
+    throw new CustomError(error.statusCode, error.message);
    }
     
     
