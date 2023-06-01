@@ -58,13 +58,14 @@ export class ResultCompetitionBusiness{
         
         let counter = 0;
         for (let i = 0; i < allResults.length; i++) {
-        }
+          if(allResults[i].atleta === atleta ) counter++;
+        } 
         
         if(counter > 3){
             throw new AthleteAttempts();
         }   
 
-        if(competicao === '100m rasos' && getResult){
+        if(competicao === '100m Rasos' && getResult){
             throw new ExistingCompetition()
         }
 
