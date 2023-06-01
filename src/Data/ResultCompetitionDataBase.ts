@@ -26,20 +26,29 @@ export class ResultCompetitionDataBase extends BaseDatabase implements ResultRep
          throw new CustomError(400, error.message)
       }
     }
-    rankingDardo = async(competicao: string): Promise<result[]>=>{
+    
+  rankingDardo = async(competicao: string):Promise<any>  => {
       try {
-        const result = await ResultCompetitionDataBase.connection.raw(`
-        SELECT competicao, atleta, max(value) value, unidade from COMPRESULT_TABLE
-        WHERE competicao = '${competicao}'
-        group by atleta, unidade
-        order by value desc;
-        `)
-        return result
-        
+          const result = await ResultCompetitionDataBase.connection(this.usertable)
+          .select('competicao','atleta')
+          .max('value as value')
+          .select('unidade')           
+          .where('competicao', '=', competicao)
+          .groupBy('atleta','unidade')
+          .orderBy('value','desc')
+          return result  
       } catch (error:any) {
-         throw new CustomError(400, error.message)
+          throw new CustomError(400, error.message);
+      }
+  }
+
+    getAllResult = async():Promise<result[]>=>{
+      try {
+        const result = await ResultCompetitionDataBase.connection(this.usertable)
+        return result
+      } catch (error:any) {
+        throw new CustomError(400, error.message)
       }
     }
-
 }
 

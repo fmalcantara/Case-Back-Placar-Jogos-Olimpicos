@@ -2,9 +2,6 @@ import { ResultRepository } from "../../src/Business/ResultRepository";
 import { result } from "../../src/Model/resultCompetition";
 import { resultMock } from "./resultMock";
 
-
-
-
 export class ResultDatabaseMock implements ResultRepository{
   public insertResult= async (result: result):Promise<void>=>{}
   
@@ -16,4 +13,9 @@ export class ResultDatabaseMock implements ResultRepository{
     const result = resultMock.filter(result => result.competicao === competicao)
     return result
   }
+
+  public getAllResult = async():Promise<result[]> => {
+    return resultMock
+}
+
 }
