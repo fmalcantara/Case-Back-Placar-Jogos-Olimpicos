@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 
-### Creiar Resultado
+### Criar um Resultado
 POST http://localhost:3003/result/insert
 Content-Type: application/json
 

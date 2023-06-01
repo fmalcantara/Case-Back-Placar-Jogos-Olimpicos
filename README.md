@@ -1,6 +1,9 @@
 
  # Case Back-End: Placar Jogos Olimpicos.
 
+Link documentação: https://documenter.getpostman.com/view/22376814/2s93mBxeSc
+Link Render: https://case-placar-jogos-olimpicos.onrender.com
+
 ## Jogos Olímpicos
 Construção de uma API REST que será responsável por marcar e dizer os vencedores das seguintes modalidades:
 

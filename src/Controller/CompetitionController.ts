@@ -21,7 +21,7 @@ export class CompetitionController{
     }
   }
 
-  public close = async(req: Request, res:Response)=>{
+   close = async(req: Request, res:Response)=>{
       try {
         const name = req.body.name
         await this.competitionBusiness.close(name)
