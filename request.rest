@@ -1,4 +1,4 @@
-### Create COmpetition
+### Create Competition
 POST http://localhost:3003/competition/create
 Content-Type: application/json
 

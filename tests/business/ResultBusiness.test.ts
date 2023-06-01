@@ -173,7 +173,7 @@ describe("testes de inserir resultado", ()=>{
       competicao: "100m Rasos",
       atleta: "Felipe",
       value: 90,
-      unidade: "S"
+      unidade:"S",
   }
   
     try {
@@ -181,7 +181,7 @@ describe("testes de inserir resultado", ()=>{
   }   catch (error: any) {
      expect(error).toBeInstanceOf(CustomError)     
      expect(error.statusCode).toBe(409)
-     expect(error.message).toBe("The athlete only has up to 3 attempts.")
+     expect(error.message).toBe("This athlete already has a result.")
     }
 })
 
